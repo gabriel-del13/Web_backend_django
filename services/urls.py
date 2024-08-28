@@ -1,13 +1,10 @@
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
 from . import views
 
-urlpatterns = [
-    path("", views.index, name="index"),
-    
-    
-    #TEST
-    path("test/" ,views.test, name="test"),
-    
-    
-    ]
+router = DefaultRouter()
+router.register(r'', views.ServiceViewSet)
 
+urlpatterns = [
+    path('', include(router.urls)),
+]
