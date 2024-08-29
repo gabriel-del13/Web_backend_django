@@ -32,30 +32,42 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DJANGO_BASE_APPS = [
+    #Django Base
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #EXTENSION
     'django_extensions',
+]
 
-    
-    #Django Allauth
-
-    
+REST_FRAMEWORK_APPS = [    
     #Rest_Framework
     'rest_framework',
+    'rest_framework.authtoken',
+]
+
+THIRD_APPS = [
     
+]
+
+OWN_APPS = [
     #Apps,
     'users',
     'products',
     'services',
     'cart',
-    'favorites',
+    'favorites',  
 ]
+
+#Django Allauth = []
+
+INSTALLED_APPS = DJANGO_BASE_APPS + REST_FRAMEWORK_APPS +THIRD_APPS + OWN_APPS #+ #Django Allauth
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -68,12 +80,12 @@ MIDDLEWARE = [
 
 ]
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
 REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
 }
 
 ROOT_URLCONF = 'backend_web_ventas.urls'
@@ -135,7 +147,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Panama'
 
 USE_I18N = True
 
