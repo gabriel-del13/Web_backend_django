@@ -4,8 +4,9 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.http import Http404
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
-from .models import Product, Category, Cart, CartItem, Favorite
+from .models import Product, ProductImage, Category, Cart, CartItem, Favorite
 from .serializers import ProductSerializer, CategorySerializer, CartSerializer, CartItemSerializer, FavoriteSerializer
 
 ##TEST BORRAR
@@ -18,6 +19,7 @@ class ProductsAPITestView(TemplateView):
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    parser_classes = (MultiPartParser, FormParser)
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -25,6 +27,19 @@ class ProductViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = []
         return [permission() for permission in permission_classes]
+    
+    def perform_create(self, serializer):
+        product = serializer.save()
+        images_data = self.request.FILES.getlist('images')
+        for image_data in images_data:
+            ProductImage.objects.create(product=product, image=image_data)
+
+    def perform_update(self, serializer):
+        product = serializer.save()
+        images_data = self.request.FILES.getlist('images')
+        for image_data in images_data:
+            ProductImage.objects.create(product=product, image=image_data)
+    
     def retrieve(self, request, *args, **kwargs):
         try:
             # Intentar obtener el objeto

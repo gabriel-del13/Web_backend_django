@@ -45,7 +45,7 @@
 
         async function getProducts() {
             try {
-                const response = await axios.get(API_URL + 'item/');
+                const response = await axios.get(API_URL + 'items/');
                 showResults(response.data);
             } catch (error) {
                 handleError(error);
@@ -70,7 +70,7 @@
         async function getProduct() {
             const id = document.getElementById('productId').value;
             try {
-                const response = await axios.get(API_URL + id + 'item/');
+                const response = await axios.get(API_URL + id + '/items/');
                 showResults(response.data);
             } catch (error) {
                 handleError(error);
@@ -86,7 +86,7 @@
                     price: '19.99',
                     available_quantity: 5
                 };
-                const response = await axios.put(API_URL + id + 'item/', product);
+                const response = await axios.put(API_URL + id + 'items/', product);
                 showResults(response.data);
             } catch (error) {
                 handleError(error);
@@ -96,7 +96,7 @@
         async function deleteProduct() {
             const id = document.getElementById('productId').value;
             try {
-                const response = await axios.delete(API_URL + id + 'item/');
+                const response = await axios.delete(API_URL + id + 'items/');
                 showResults({ message: 'Product deleted successfully' });
             } catch (error) {
                 handleError(error);

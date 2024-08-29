@@ -1,10 +1,16 @@
 from rest_framework import serializers
-from .models import Category, Product, Cart, CartItem, Favorite
+from .models import Category, Product, ProductImage, Cart, CartItem, Favorite
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['id', 'name_category', 'created_at', 'updated_at']
+
+class ProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductImage
+        fields = ['id', 'image']
+        
 
 class ProductSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
@@ -15,7 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['id', 'name_product', 'description', 'price', 'available_quantity', 
-                  'image', 'category', 'category_id', 'status', 'created_at', 'updated_at']
+                  'images', 'category', 'category_id', 'status', 'created_at', 'updated_at']
 
 class CartItemSerializer(serializers.ModelSerializer):
     product = ProductSerializer(read_only=True)

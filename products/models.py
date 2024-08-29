@@ -10,13 +10,12 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 
-##Product (name, description, price, available_quantity, image, status, created_at, updated_at)
+##Product (name, description, price, available_quantity, images, status, created_at, updated_at)
 class Product(models.Model):
     name_product = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     available_quantity = models.PositiveIntegerField()
-    image = models.ImageField(upload_to='products_images/', null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=20, default='disponible')
     created_at = models.DateTimeField(auto_now_add=True)
@@ -26,6 +25,10 @@ class Product(models.Model):
         if self.available_quantity == 0:
             self.status = 'agotado'
         super().save(*args, **kwargs)
+
+class ProductImage(models.Model):
+    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='products_images/')
 
 
 ##Cart (user, status, created_at, update_at)
