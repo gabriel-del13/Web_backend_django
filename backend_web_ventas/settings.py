@@ -51,7 +51,11 @@ REST_FRAMEWORK_APPS = [
 ]
 
 THIRD_APPS = [
-    
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
 
 OWN_APPS = [
@@ -63,9 +67,8 @@ OWN_APPS = [
     'favorites',  
 ]
 
-#Django Allauth = []
 
-INSTALLED_APPS = DJANGO_BASE_APPS + REST_FRAMEWORK_APPS +THIRD_APPS + OWN_APPS #+ #Django Allauth
+INSTALLED_APPS = DJANGO_BASE_APPS + REST_FRAMEWORK_APPS +THIRD_APPS + OWN_APPS 
 
 
 
@@ -77,9 +80,38 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
+
 
 ]
+# ###################TEST##############################
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
+SITE_ID = 1
+
+# Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+# Allauth settings
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+LOGIN_REDIRECT_URL = '/api/products/test'  # Cambia esto a la URL que desees después del login
+#########################################################
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REST_FRAMEWORK = {
