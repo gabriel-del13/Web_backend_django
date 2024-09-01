@@ -21,18 +21,33 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # Admin de django
     path('admin/', admin.site.urls),
-    #TEST####
+    
+    # url de login, sign up, etc
     path('accounts/', include('allauth.urls')),
-    #######
+    
+    # APis:
     path('api/', include([
-        path('products/', include('products.urls')),
-        path('services/', include('services.urls')),
-        path('users/', include ('users.urls')),
-        path('cart/', include('cart.urls')),
-        path('favorites/', include('favorites.urls')),
+        # Pagina base
         path('main/', include('main.urls')),
         
+        # Usuarios
+        path('users/', include ('users.urls')),
+        
+        # Productos
+        path('products/', include('products.urls')),
+        
+        # Servicios
+        path('services/', include('services.urls')),
+        
+        # Carrito
+        path('cart/', include('cart.urls')),
+        
+        # Lista de deseos
+        path('favorites/', include('favorites.urls')),
+        
+
     ])),
 ]
 if settings.DEBUG:

@@ -63,7 +63,6 @@ REST_FRAMEWORK_APPS = [
 
 THIRD_APPS = [
     'django.contrib.sites',
-    # Django Allauth
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -81,7 +80,7 @@ OWN_APPS = [
 
 ]
 
-INSTALLED_APPS = DJANGO_BASE_APPS + REST_FRAMEWORK_APPS +THIRD_APPS + OWN_APPS 
+INSTALLED_APPS = DJANGO_BASE_APPS + REST_FRAMEWORK_APPS + THIRD_APPS + OWN_APPS 
 
 
 # Identificador único para el sitio cuando se usa el framework `django.contrib.sites`.
@@ -178,7 +177,7 @@ TEMPLATES = [
         'DIRS': ['products/ztemplates',
                  'services/ztemplates',
                  'users/ztemplates',
-                'users/ztemplates/accounts',
+                 'users/ztemplates/account',
                  'main/ztemplates'
                 ],
         'APP_DIRS': True,
