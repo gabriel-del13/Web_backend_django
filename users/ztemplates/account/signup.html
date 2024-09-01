@@ -39,6 +39,13 @@
 
   <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">{% trans "Sign Up" %}</button>
 
+  <div class="mt-3">
+    <a href="{% provider_login_url 'google' %}" class="btn btn-google w-100">
+      <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo" width="18" height="18">
+      Continue with Google
+    </a>
+  </div>
+
   <p class="mt-5 mb-3 text-muted">
     {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
   </p>
