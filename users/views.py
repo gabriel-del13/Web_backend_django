@@ -11,9 +11,6 @@ from django.views.generic import TemplateView
 
 class LoginTest(TemplateView):
     template_name = "logtest.html"
-    
-class RegisterTest(TemplateView):
-    template_name = "regtest.html"
 
 ####
 

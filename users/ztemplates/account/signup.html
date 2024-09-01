@@ -1,0 +1,46 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+  {% csrf_token %}
+  <h1 class="h3 mb-3 fw-normal">{% trans "Sign Up" %}</h1>
+
+  {{ form.non_field_errors }}
+
+  {% for field in form %}
+    <div class="form-floating">
+      <input type="{{ field.field.widget.input_type }}" 
+             name="{{ field.html_name }}"
+             class="form-control {% if field.errors %}is-invalid{% endif %}"
+             id="{{ field.auto_id }}"
+             placeholder="{{ field.label }}"
+             {% if field.field.required %}required{% endif %}
+             {% if field.value %}value="{{ field.value }}"{% endif %}>
+      <label for="{{ field.auto_id }}">{{ field.label }}</label>
+      {% if field.errors %}
+        <div class="invalid-feedback">
+          {{ field.errors|join:", " }}
+        </div>
+      {% endif %}
+      {% if field.help_text %}
+        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+
+  <button class="w-100 btn btn-lg btn-primary mt-3" type="submit">{% trans "Sign Up" %}</button>
+
+  <p class="mt-5 mb-3 text-muted">
+    {% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}
+  </p>
+</form>
+{% endblock %}
