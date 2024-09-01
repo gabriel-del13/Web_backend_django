@@ -5,6 +5,19 @@ from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from .serializers import UserRegistrationSerializer, UserLoginSerializer
 
+
+##TEST BORRAR
+from django.views.generic import TemplateView
+
+class LoginTest(TemplateView):
+    template_name = "logtest.html"
+    
+class RegisterTest(TemplateView):
+    template_name = "regtest.html"
+
+####
+
+
 class UserRegistrationView(APIView):
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)

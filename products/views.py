@@ -7,13 +7,13 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.parsers import MultiPartParser, FormParser
 from .models import Product, ProductImage, Category
 from .serializers import ProductSerializer, CategorySerializer
-from favorites.models import Favorites  # Importa el modelo Favorite de la nueva aplicación
+from favorites.models import Favorites 
 
 ##TEST BORRAR
 from django.views.generic import TemplateView
 
 class ProductsAPITestView(TemplateView):
-    template_name = "login.html"
+    template_name = "index.html"
 
 ####
 class ProductViewSet(viewsets.ModelViewSet):

@@ -70,7 +70,7 @@ OWN_APPS = [
 
 INSTALLED_APPS = DJANGO_BASE_APPS + REST_FRAMEWORK_APPS +THIRD_APPS + OWN_APPS 
 
-
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -84,13 +84,8 @@ MIDDLEWARE = [
 
 
 ]
-# ###################TEST##############################
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
 
-SITE_ID = 1
+
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -105,12 +100,18 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# Allauth settings
+########### Allauth settings
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-LOGIN_REDIRECT_URL = '/api/products/test'  # Cambia esto a la URL que desees después del login
+###Formulario de registro
+ACCOUNT_FORMS = {'signup': 'users.forms.CustomSignupForm'}
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+###Redirect
+LOGIN_REDIRECT_URL = '/api/main/homelog'
 #########################################################
 AUTH_USER_MODEL = 'users.CustomUser'
 
@@ -121,13 +122,15 @@ REST_FRAMEWORK = {
 }
 
 ROOT_URLCONF = 'backend_web_ventas.urls'
-
+########## Plantillas
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ['products/ztemplates',
-                 'services/ztemplates'
-                
+                 'services/ztemplates',
+                 'users/ztemplates',
+                'users/ztemplates/accounts',
+                 'main/ztemplates'
                 ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -136,11 +139,17 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
-
+########Django Allauth
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+############
 WSGI_APPLICATION = 'backend_web_ventas.wsgi.application'
 
 
@@ -189,7 +198,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
