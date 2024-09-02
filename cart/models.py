@@ -4,11 +4,11 @@ from products.models import Product
 
 class Cart(models.Model):
     STATUS_CHOICES = [
-        ('active', 'Active'),
-        ('checked_out', 'Checked Out'),
+        ('disponible', 'Disponible'),
+        ('agotado', 'Agotado'),
     ]
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, to_field='id')
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='active')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='disponible')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     

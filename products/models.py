@@ -10,12 +10,17 @@ class Category(models.Model):
 
 ##Product (name, description, price, available_quantity, images, status, created_at, updated_at)
 class Product(models.Model):
+    STATUS_CHOICES = [
+        ('disponible', 'Disponible'),
+        ('agotado', 'Agotado'),
+    ]
+        
     name_product = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
     available_quantity = models.PositiveIntegerField()
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    status = models.CharField(max_length=20, default='disponible')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='disponible')  # Agrega choices aquí
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
