@@ -2,24 +2,25 @@
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from django.http import Http404
+from rest_framework import filters
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.parsers import MultiPartParser, FormParser
+
+from django.http import Http404
+from django_filters.rest_framework import DjangoFilterBackend
+
 from .models import Product, ProductImage, Category
 from .serializers import ProductSerializer, CategorySerializer
 from favorites.models import Favorites 
 
-##TEST BORRAR
-from django.views.generic import TemplateView
 
-class ProductsAPITestView(TemplateView):
-    template_name = "index.html"
-
-####
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     parser_classes = (MultiPartParser, FormParser)
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
+    filterset_fields = ['status'] 
+    ordering_fields = ['updated_at', 'price', 'available_quantity']
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -63,6 +64,8 @@ class ProductViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['name_category']
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
