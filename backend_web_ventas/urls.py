@@ -41,9 +41,6 @@ urlpatterns = [
         # Servicios
         path('services/', include('services.urls')),
         
-        # Carrito
-        path('cart/', include('cart.urls')),
-        
         # Lista de deseos
         path('favorites/', include('favorites.urls')),
         

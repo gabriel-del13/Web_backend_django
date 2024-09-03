@@ -75,7 +75,6 @@ OWN_APPS = [
     'main',
     'products',
     'services',
-    'cart',
     'favorites',  
 
 ]
