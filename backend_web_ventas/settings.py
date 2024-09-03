@@ -67,6 +67,7 @@ THIRD_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'drf_yasg',
 ]
 
 OWN_APPS = [

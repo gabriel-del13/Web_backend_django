@@ -2,9 +2,10 @@ from rest_framework import serializers
 from .models import Category, Product, ProductImage
 
 class CategorySerializer(serializers.ModelSerializer):
+    parent_category = serializers.StringRelatedField()
     class Meta:
         model = Category
-        fields = ['id', 'name_category', 'created_at', 'updated_at']
+        fields = ['id', 'name_category','parent_category', 'created_at', 'updated_at']
 
 class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:

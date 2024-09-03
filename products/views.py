@@ -65,7 +65,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['name_category']
+    filterset_fields = ['name_category', 'parent_category']
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -73,3 +73,4 @@ class CategoryViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = []
         return [permission() for permission in permission_classes]
+
