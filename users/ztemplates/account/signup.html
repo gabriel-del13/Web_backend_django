@@ -19,7 +19,7 @@
              class="form-control {% if field.errors %}is-invalid{% endif %}"
              id="{{ field.auto_id }}"
              placeholder="{{ field.label }}"
-             {% if field.field.required %}required{% endif %}
+             {% if field.html_name != 'phone_number' and field.field.required %}required{% endif %}
              {% if field.value %}value="{{ field.value }}"{% endif %}>
       <label for="{{ field.auto_id }}">{{ field.label }}</label>
       {% if field.errors %}

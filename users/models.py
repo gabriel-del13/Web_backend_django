@@ -11,8 +11,10 @@ class CustomUser(AbstractUser):
                 regex=r'^\+507\d{8}$',
                 message="El número debe estar en formato: '+507xxxxxxxx'."
             )
-        ]
+        ],
+        blank=True, 
+        null= True
     )
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'phone_number']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
