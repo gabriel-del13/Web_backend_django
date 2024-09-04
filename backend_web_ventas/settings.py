@@ -172,8 +172,12 @@ REST_FRAMEWORK = {
 }
 
 
-
-
+# Habilita la cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache', # Cache en memoria
+    }
+}
 
 
 # Este archivo especifica las rutas principales para el enrutamiento de la aplicación.

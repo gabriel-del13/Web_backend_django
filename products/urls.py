@@ -9,7 +9,7 @@ router.register(r'category', views.CategoryViewSet)
 
 urlpatterns = [
 
-    path('products', include(router.urls)),
+    path('', include(router.urls)),
 
 
 ]
