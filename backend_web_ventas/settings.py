@@ -37,6 +37,7 @@ SECRET_KEY = 'django-insecure-t&@-*p_j@v7sqq!hrp#r%bqhva_ia#-4=ajzmhfl4)9n3my3c5
 # Cuando DEBUG está en True, se muestran mensajes detallados de error. Debe estar en False en producción para mayor seguridad.
 DEBUG = True
 
+CORS_ALLOW_ALL_ORIGINS = True
 
 # Lista de dominios o direcciones IP permitidos para servir la aplicación.
 ALLOWED_HOSTS = []
@@ -68,6 +69,7 @@ THIRD_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'drf_yasg',
+    'corsheaders',
 ]
 
 OWN_APPS = [
@@ -97,6 +99,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 
 
 ]
