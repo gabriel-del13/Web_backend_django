@@ -69,8 +69,11 @@ Métodos:
 
 # ProductImage (image)
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products_images/')
+
+    def __str__(self):
+        return f"Image for {self.product.name_product}"
 
 
     """

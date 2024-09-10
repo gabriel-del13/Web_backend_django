@@ -59,6 +59,11 @@ class ProductViewSet(viewsets.ModelViewSet):
         if created:
             return Response({'status': 'product added to favorites'}, status=status.HTTP_201_CREATED)
         return Response({'status': 'product already in favorites'}, status=status.HTTP_200_OK)
+    
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -72,4 +77,3 @@ class CategoryViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = []
         return [permission() for permission in permission_classes]
-
