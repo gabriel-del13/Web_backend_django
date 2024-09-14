@@ -6,6 +6,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = ['image']
+        ref_name = 'ProductsProductImageSerializer'
+
 
 class FavoritesSerializer(serializers.ModelSerializer):
     name_product = serializers.CharField(read_only=True)

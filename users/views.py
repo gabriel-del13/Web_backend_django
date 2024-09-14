@@ -1,21 +1,13 @@
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import authenticate
 from .serializers import UserRegistrationSerializer, UserLoginSerializer
 
-
-##TEST BORRAR
-from django.views.generic import TemplateView
-
-class LoginTest(TemplateView):
-    template_name = "logtest.html"
-
-####
-
-
 class UserRegistrationView(APIView):
+
     def post(self, request):
         serializer = UserRegistrationSerializer(data=request.data)
         if serializer.is_valid():
@@ -46,3 +38,14 @@ class UserLoginView(APIView):
                 })
             return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+
+class UserLogoutView(APIView):
+    permission_classes = [IsAuthenticated] 
+
+    def post(self, request):
+        try:
+            request.user.auth_token.delete()
+            return Response({'message': 'Sesión cerrada exitosamente.'}, status=status.HTTP_200_OK)
+        except AttributeError:
+            return Response({'error': 'Usuario no autenticado.'}, status=status.HTTP_400_BAD_REQUEST)

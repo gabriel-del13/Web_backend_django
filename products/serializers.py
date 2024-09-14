@@ -13,6 +13,8 @@ class ProductImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductImage
         fields = ['id', 'image_url']
+        ref_name = 'FavoritesProductImageSerializer'
+
 
     def get_image_url(self, obj):
         request = self.context.get('request')

@@ -37,7 +37,7 @@ class Product(models.Model):
     name_product = models.CharField(max_length=50)
     description = models.TextField(null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    available_quantity = models.PositiveIntegerField()
+    available_quantity = models.PositiveIntegerField(null= True, blank= True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='DISPONIBLE') 
     created_at = models.DateTimeField(auto_now_add=True)
