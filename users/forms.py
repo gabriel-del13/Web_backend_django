@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 class CustomSignupForm(SignupForm):
     first_name = forms.CharField(max_length=30, label='Nombre')
     last_name = forms.CharField(max_length=30, label='Apellido')
-    phone_number = forms.CharField(max_length=15, label='Número de teléfono')
+    phone_number = forms.CharField(max_length=8, label='Número de teléfono')
 
     def save(self, request):
         user = super(CustomSignupForm, self).save(request)
