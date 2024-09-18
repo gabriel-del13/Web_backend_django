@@ -1,5 +1,5 @@
 
-from rest_framework import viewsets, status, filters
+from rest_framework import viewsets, status, filters, generics
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
@@ -7,19 +7,19 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
-
 from .models import Product, ProductImage, Category
 from .serializers import ProductSerializer, CategorySerializer
 from favorites.models import Favorites 
-
+from .filters import ProductFilter
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     parser_classes = (MultiPartParser, FormParser)
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
-    filterset_fields = ['status'] 
-    ordering_fields = ['updated_at', 'price', 'available_quantity']
+    filterset_class = ProductFilter
+    ordering_fields = ['name_product', 'updated_at', 'price', 'available_quantity']
+
 
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
@@ -77,3 +77,4 @@ class CategoryViewSet(viewsets.ModelViewSet):
         else:
             permission_classes = []
         return [permission() for permission in permission_classes]
+    
