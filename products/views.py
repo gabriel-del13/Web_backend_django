@@ -7,10 +7,10 @@ from rest_framework.parsers import MultiPartParser, FormParser
 
 from django.http import Http404
 from django_filters.rest_framework import DjangoFilterBackend
-from .models import Product, ProductImage, Category
-from .serializers import ProductSerializer, CategorySerializer
+from .models import Product, ProductImage, ChildCategory, ParentCategory
+from .serializers import ProductSerializer, ChildCategorySerializer, ParentCategorySerializer
 from favorites.models import Favorites 
-from .filters import ProductFilter
+from .filters import ProductFilter, ChildCategoryFilter
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
@@ -65,16 +65,32 @@ class ProductViewSet(viewsets.ModelViewSet):
         context['request'] = self.request
         return context
 
-class CategoryViewSet(viewsets.ModelViewSet):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+class ChildCategoryViewSet(viewsets.ModelViewSet):
+    queryset = ChildCategory.objects.all()
+    serializer_class = ChildCategorySerializer
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['name_category', 'parent_category']
-
+    filterset_class = ChildCategoryFilter
+    ordering_fields = ['name_category', 'updated_at']
+    
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             permission_classes = [IsAdminUser]
         else:
             permission_classes = []
         return [permission() for permission in permission_classes]
+
+
+class ParentCategoryViewSet(viewsets.ModelViewSet):
+    queryset = ParentCategory.objects.all()
+    serializer_class = ParentCategorySerializer
+    filter_backends = [DjangoFilterBackend]
+    ordering_fields = ['name_parentcategory', 'updated_at']
+    
+    def get_permissions(self):
+        if self.action in ['create', 'update', 'partial_update', 'destroy']:
+            permission_classes = [IsAdminUser]
+        else:
+            permission_classes = []
+        return [permission() for permission in permission_classes]
+    
     

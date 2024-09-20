@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from products.models import Product, Category, ProductImage
+from products.models import Product, ChildCategory, ProductImage
 
 class Favorites(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, to_field='id')
@@ -32,11 +32,11 @@ class Favorites(models.Model):
 
     @property
     def category(self):
-        return self.product.category
+        return self.product.child_category
 
     @property
     def category_name(self):
-        return self.product.category.name_category if self.product.category else None
+        return self.product.child_category.name_childcategory if self.product.child_category else None
 
     @property
     def status(self):
