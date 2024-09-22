@@ -1,10 +1,7 @@
 from rest_framework import serializers
 from .models import ChildCategory, ParentCategory, Product, ProductImage
 
-class ParentCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = ParentCategory
-        fields = ['id', 'name_parentcategory', 'created_at', 'updated_at']
+
 
 
 class ChildCategorySerializer(serializers.ModelSerializer):
@@ -14,7 +11,16 @@ class ChildCategorySerializer(serializers.ModelSerializer):
         model = ChildCategory
         fields = ['id', 'name_childcategory', 'parent_category', 'created_at', 'updated_at']
 
+class ParentCategorySerializer(serializers.ModelSerializer):
+    subcategories = serializers.SerializerMethodField() 
 
+    class Meta:
+        model = ParentCategory
+        fields = ['id', 'name_parentcategory','subcategories', 'created_at', 'updated_at']
+        
+    def get_subcategories(self, obj):
+        # Aquí devolvemos solo 'id' y 'name_childcategory' de las subcategorías
+        return obj.subcategories.values('id', 'name_childcategory')
 
 class ProductImageSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -36,7 +42,7 @@ class ProductSerializer(serializers.ModelSerializer):
     child_category_id = serializers.PrimaryKeyRelatedField(
         queryset=ChildCategory.objects.all(), source='child_category', write_only=True
     )
-    parent_category = serializers.StringRelatedField(read_only=True)  # Para mostrar el nombre de la parent_category
+    parent_category = ParentCategorySerializer(read_only=True)  # Para mostrar el nombre de la parent_category
     parent_category_id = serializers.PrimaryKeyRelatedField(
         queryset=ParentCategory.objects.all(), source='parent_category', write_only=True, required=False
     )

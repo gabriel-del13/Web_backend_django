@@ -70,7 +70,8 @@ class ChildCategoryViewSet(viewsets.ModelViewSet):
     serializer_class = ChildCategorySerializer
     filter_backends = [DjangoFilterBackend]
     filterset_class = ChildCategoryFilter
-    ordering_fields = ['name_category', 'updated_at']
+    # Permite ordenar los resultados por el nombre de la categoría o la fecha de última actualización
+    ordering_fields = ['name_childcategory', 'updated_at']
     
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
