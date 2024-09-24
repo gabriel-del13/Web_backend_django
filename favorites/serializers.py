@@ -14,13 +14,13 @@ class FavoritesSerializer(serializers.ModelSerializer):
     price = serializers.DecimalField(max_digits=6, decimal_places=2, read_only=True)
     available_quantity = serializers.IntegerField(read_only=True)
     images = ProductImageSerializer(many=True, read_only=True)
-    category = serializers.CharField(source='category.name_category', read_only=True)
+    child_category = serializers.CharField(source='chilcategory.name_childcategory', read_only=True)
     status = serializers.CharField(read_only=True)
     description = serializers.CharField(read_only=True)
 
     class Meta:
         model = Favorites
-        fields = ['id', 'user', 'product', 'name_product', 'price', 'available_quantity', 'images',
-                  'category', 'status', 'description', 'created_at', 'updated_at']
+        fields = ['id', 'product', 'name_product', 'price', 'available_quantity', 'images',
+                  'child_category', 'status', 'description', 'created_at', 'updated_at']
         
-        read_only_fields = ['name_product', 'price', 'available_quantity', 'images', 'category', 'status', 'description']
+        read_only_fields = ['name_product', 'price', 'available_quantity', 'images', 'child_category', 'status', 'description']

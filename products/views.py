@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.parsers import MultiPartParser, FormParser
 
 from django.http import Http404
+from django.db.models import Q
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Product, ProductImage, ChildCategory, ParentCategory
 from .serializers import ProductSerializer, ChildCategorySerializer, ParentCategorySerializer
@@ -20,7 +21,20 @@ class ProductViewSet(viewsets.ModelViewSet):
     filterset_class = ProductFilter
     ordering_fields = ['name_product', 'updated_at', 'price', 'available_quantity']
 
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        search_term = self.request.query_params.get('search', None)
+        ordering = self.request.query_params.get('ordering', '-updated_at')
 
+        filters = Q()
+        
+        if search_term:
+            filters &= Q(name_product__icontains=search_term)
+        
+        queryset = queryset.filter(filters)
+        
+        return queryset.order_by(ordering)
+    
     def get_permissions(self):
         if self.action in ['create', 'update', 'partial_update', 'destroy']:
             permission_classes = [IsAdminUser]
