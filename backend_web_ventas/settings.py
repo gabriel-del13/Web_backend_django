@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 
 # BASE_DIR es la ruta base del proyecto (la carpeta principal que contiene todos los archivos del proyecto).
