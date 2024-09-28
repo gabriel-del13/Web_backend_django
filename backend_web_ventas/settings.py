@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
 
 
 # BASE_DIR es la ruta base del proyecto (la carpeta principal que contiene todos los archivos del proyecto).
@@ -35,7 +36,7 @@ SECRET_KEY = 'django-insecure-t&@-*p_j@v7sqq!hrp#r%bqhva_ia#-4=ajzmhfl4)9n3my3c5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Cuando DEBUG está en True, se muestran mensajes detallados de error. Debe estar en False en producción para mayor seguridad.
-DEBUG = True
+DEBUG = False
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -100,6 +101,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
 
 
 ]
@@ -230,10 +233,7 @@ WSGI_APPLICATION = 'backend_web_ventas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(default=os.getenv('DATABASE_URL'))
 }
 
 
@@ -270,7 +270,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 
 # Tipo de campo predeterminado para las claves primarias en los modelos.
