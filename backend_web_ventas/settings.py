@@ -41,7 +41,7 @@ DEBUG = False
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Lista de dominios o direcciones IP permitidos para servir la aplicación.
-ALLOWED_HOSTS = ['201.218.71.210']
+ALLOWED_HOSTS = ['webbackenddjango-production.up.railway.app','localhost','127.0.0.1','201.218.71.210']
 
 
 # Application definition
