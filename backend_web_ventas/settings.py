@@ -41,7 +41,7 @@ DEBUG = False
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Lista de dominios o direcciones IP permitidos para servir la aplicación.
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['201.218.71.210']
 
 
 # Application definition
@@ -276,9 +276,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
