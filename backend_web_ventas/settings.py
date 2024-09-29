@@ -36,7 +36,7 @@ SECRET_KEY = 'django-insecure-t&@-*p_j@v7sqq!hrp#r%bqhva_ia#-4=ajzmhfl4)9n3my3c5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Cuando DEBUG está en True, se muestran mensajes detallados de error. Debe estar en False en producción para mayor seguridad.
-DEBUG = False
+DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
 
