@@ -39,6 +39,7 @@ SECRET_KEY = 'django-insecure-t&@-*p_j@v7sqq!hrp#r%bqhva_ia#-4=ajzmhfl4)9n3my3c5
 DEBUG = True
 
 CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = ['https://webbackenddjango-production.up.railway.app']
 
 # Lista de dominios o direcciones IP permitidos para servir la aplicación.
 ALLOWED_HOSTS = ['webbackenddjango-production.up.railway.app','localhost','127.0.0.1','201.218.71.210']
