@@ -1,2 +1,1 @@
-> .[!WARNING].
-> API OFF
+<div style="color: red; font-weight: bold;"> ⚠️ API OFF
